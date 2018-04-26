@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>msg_icon.jpg</file>
+  </qresource>
+</RCC>
