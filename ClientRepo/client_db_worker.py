@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from client_db_init import Connector
+from .client_db_init import Connector
 from os import path
 
 

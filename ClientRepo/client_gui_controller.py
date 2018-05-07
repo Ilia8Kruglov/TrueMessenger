@@ -1,8 +1,8 @@
 from os import path
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QEvent
-from ClientRepo.client import Client
-from ClientRepo.gui_handler import GuiListener
+from .client import Client
+from .gui_handler import GuiListener
 
 client_folder_path = path.dirname(path.abspath(__file__))
 contact_ui_path = path.join(client_folder_path, 'ui', 'contacts.ui')
@@ -23,10 +23,6 @@ class ChatWindow(QtWidgets.QDialog):
         self.controller = controller
         QtWidgets.QDialog.__init__(self, parent)
         uic.loadUi(chat_window_path, self)
-        # self.txtNewMessage.keyPressEvent = self.key_event_handler
-        # self.setShortcut('Enter')
-
-
 
 
 class LoginWindow(QtWidgets.QDialog):

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" idbasedtr="false">
  <class>dlgChat</class>
  <widget class="QDialog" name="dlgChat">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
+    <width>528</width>
     <height>409</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
    <iconset>
     <normaloff>:/images/icons/chat1.ico</normaloff>:/images/icons/chat1.ico</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -48,6 +48,36 @@
       <set>Qt::TextSelectableByMouse</set>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>smiles</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QTextEdit" name="txtNewMessage">
@@ -86,7 +116,7 @@
       <number>0</number>
      </property>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -134,7 +164,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>txtNewMessage</tabstop>
   <tabstop>btnSendMsg</tabstop>
   <tabstop>txtChatMessages</tabstop>
  </tabstops>

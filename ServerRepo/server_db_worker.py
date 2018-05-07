@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, delete
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from server_db_init import Connector
+from .server_db_init import Connector
 from datetime import datetime
 from os import path
 

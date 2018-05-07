@@ -1,10 +1,13 @@
 from select import select
 from socket import socket, AF_INET, SOCK_STREAM
-from ServerRepo.server_log_config import logger
+from .server_log_config import logger
 from jim.utils import *
 from jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
-from ServerRepo.server_db_worker import ServerDBworker
-from config.config_common import *
+from .server_db_worker import ServerDBworker
+from jim.config_common import *
+import sys, os
+
+sys.path.append(os.path.join(os.getcwd(), '..'))
 
 
 class JIMHandler:
@@ -93,7 +96,6 @@ class JIMserver:
         logger.info("The chat server has started successfully")
 
         while True:
-
             try:
                 conn, addr = self.server.accept()
             except OSError as e:

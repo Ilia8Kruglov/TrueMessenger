@@ -10,7 +10,7 @@ def create_strong_hash(passwd):
 
 
 if __name__ == '__main__':
-    passwd = create_strong_hash('test')
+    passwd = create_strong_hash('121093')
     print(passwd)
 
 

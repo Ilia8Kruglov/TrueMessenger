@@ -1,11 +1,10 @@
 from socket import socket, AF_INET, SOCK_STREAM
-from threading import Thread
 from jim.jim_protocol import JIMActionMessage
-from config.config_common import *
+from jim.config_common import *
 from jim.utils import send_message, get_message
 from queue import Queue
-from ClientRepo.client_secure import *
-from ClientRepo.client_db_worker import ClientDBworker
+from .client_secure import *
+from .client_db_worker import ClientDBworker
 import sys
 import json
 

@@ -67,7 +67,8 @@ class JIMActionMessage:
     user_fields = [FIELD_ACCOUNT_NAME, FIELD_PASSWORD, FIELD_STATUS]
 
     def __init__(self, **kwargs):
-        self.msgtime = str(datetime.now())
+        dt = datetime.now()
+        self.msgtime = str(dt.strftime("%b %d, %Y %I:%M %p"))
         for k, v in kwargs.items():
             setattr(self, k, v)
 
@@ -154,7 +155,7 @@ RESPONSE_ERROR = JIMResponseMessage({FIELD_RESPONSE: CODE_ERROR})
 
 
 if __name__ == '__main__':
-    user = {FIELD_ACCOUNT_NAME: 'NewUser', FIELD_STATUS: 'Hey, Im here!', FIELD_PASSWORD: 'userPwd'}
+    user = {FIELD_ACCOUNT_NAME: 'user', FIELD_STATUS: 'Hey, Im here!', FIELD_PASSWORD: 'password'}
     print(JIMActionMessage.presence(user).as_dict)
     RESPONSE_OK = JIMResponseMessage({FIELD_RESPONSE: CODE_OK})
     RESPONSE_ERROR = JIMResponseMessage({FIELD_RESPONSE: CODE_ERROR})
