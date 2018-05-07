@@ -5,8 +5,29 @@ from config.config_common import *
 from jim.utils import send_message, get_message
 from queue import Queue
 from ClientRepo.client_secure import *
+from ClientRepo.client_db_worker import ClientDBworker
 import sys
 import json
+
+
+class LocalStorage:
+    ''' Interaction with local DB '''
+
+    def __init__(self, user):
+        self.user = user
+
+    def add_contact(self, contact):
+
+        with ClientDBworker(self.user) as store:
+            return store.add_contact(contact)
+
+    def get_contacts(self):
+        with ClientDBworker(self.user) as store:
+            return store.get_contacts
+
+    def del_contact(self, contact):
+        with ClientDBworker(self.user) as store:
+            return store.del_contact(contact)
 
 
 class Client:
@@ -15,6 +36,7 @@ class Client:
         self.password = create_strong_hash(password)
         self.address = ('localhost', 8888)
         self.tcp_socket = socket(AF_INET, SOCK_STREAM)
+        self.storage = LocalStorage(username)
         self.receiver = None
         self.received_data = None
         self.connected = False
@@ -23,30 +45,32 @@ class Client:
         self.user_auth = {FIELD_ACCOUNT_NAME: self.username, FIELD_STATUS: 'Authenticating',
                           FIELD_PASSWORD: self.password}
 
+        self.start()
+        self.authenticate = self.authenticate_request()
+
     def start(self):
         self.tcp_socket.connect(self.address)
         self.connected = True
-
-    def start_session(self):
-        self.tcp_socket.connect(self.address)
-        self.connected = True
-        self.receiver = Thread(target=self.receive_message, daemon=True)
-        self.receiver.start()
-        return True
 
     def create_presence(self):
         presence = JIMActionMessage.presence(self.user_presence).as_dict
         return presence
 
     def add_contact(self, contact):
+        if self.user_exist(contact):
+            return self.storage.add_contact(contact)
+        return False
+
+    def user_exist(self, contact):
         JIMrequestAdd = JIMActionMessage.add_contact(self.username, contact).as_dict
         send_message(self.tcp_socket, JIMrequestAdd)
-        return True
+        response = get_message(self.tcp_socket)
+        if response[FIELD_RESPONSE] == CODE_OK:
+            return True
+        return False
 
     def del_contact(self, contact):
-        JIMrequestDel = JIMActionMessage.del_contact(self.username, contact).as_dict
-        send_message(self.tcp_socket, JIMrequestDel)
-        return True
+        return self.storage.del_contact(contact)
 
     def authenticate_request(self):
         request = JIMActionMessage.authenticate(self.user_auth).as_dict
@@ -61,26 +85,11 @@ class Client:
         return JIMActionMessage.to_all_users(self.username, text).as_dict
 
     def get_contacts(self):
-        JIMrequestContacts = JIMActionMessage.get_contacts(self.username).as_dict
-        send_message(self.tcp_socket, JIMrequestContacts)
-        JIMresponseContacts = get_message(self.tcp_socket)
-        return JIMresponseContacts
-
-    def con_send_messages(self):
-        if self.start_session:
-            # Authenticating
-            self.tcp_socket.send(json.dumps(self.authenticate_request()).encode('ascii'))
-            # self.tcp_socket.send(json.dumps(self.get_contacts()).encode('ascii'))
-            # self.tcp_socket.send(json.dumps(self.add_contact('Valera')).encode('ascii'))
-        while True:
-            text = input()
-            message = self.create_message(text)
-            if self.start_session:
-                self.tcp_socket.send(json.dumps(message).encode('ascii'))
+        return self.storage.get_contacts()
 
     def gui_send_messages(self, text):
             message = self.create_message(text)
-            if self.start_session:
+            if self.connected:
                 self.tcp_socket.send(json.dumps(message).encode('ascii'))
 
     def receive_message(self):
@@ -123,6 +132,6 @@ if __name__ == '__main__':
         port = 10000
 
     client = Client(username, password)
-    client.start_session()
-    client.send_messages()
+
+
 

@@ -1,6 +1,6 @@
-import select
+from select import select
 from socket import socket, AF_INET, SOCK_STREAM
-from log.server_log_config import logger
+from ServerRepo.server_log_config import logger
 from jim.utils import *
 from jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
 from ServerRepo.server_db_worker import ServerDBworker
@@ -16,7 +16,8 @@ class JIMHandler:
             try:
                 data = get_message(sock)
                 requesters[sock] = data
-                logger.info("Received message: \"{}\" to {}, {}".format(requesters[sock], sock.fileno(), sock.getpeername()))
+                logger.info("Received message: \"{}\" to {}, {}".format(requesters[sock],
+                                                                        sock.fileno(), sock.getpeername()))
             except:
                 logger.info("Client {} {} disconnected" .format(sock.fileno(), sock.getpeername()))
                 all_clients.remove(sock)
@@ -67,15 +68,22 @@ class JIMactions:
             return JIMActionMessage.contact_list(owner, contacts).as_dict
 
     @staticmethod
+    def user_exist(message):
+        with ServerDBworker() as store:
+            user = message.get('contact_name')
+            return store.account_registered(user)
+
+    @staticmethod
     def create_user():
         pass
 
 
 class JIMserver:
-    def __init__(self, server_address, handler=JIMHandler(), server=socket(AF_INET, SOCK_STREAM)):
-        self.server = server
-        self.server_address = server_address
-        self.handler = handler
+    def __init__(self, ip, port):
+        self.server = socket(AF_INET, SOCK_STREAM)
+        self.server_address = (ip, int(port))
+        self.handler = JIMHandler()
+        self.start()
 
     def start(self):
         self.server.bind(self.server_address)
@@ -100,30 +108,30 @@ class JIMserver:
 
                 # Start chat between users
                 try:
-                    input_ready, output_ready, e = select.select(clients, clients, [], wait)
+                    input_ready, output_ready, e = select(clients, clients, [], wait)
                 except:
                     pass
-                requests = self.handler.read_requests(input_ready, clients)  # Те кто пишет, читаем
+                requests = self.handler.read_requests(input_ready, clients)
 
                 for sock, data in requests.items():
+                    userid = data.get(FIELD_USERID)
                     for w_client in output_ready:
                         processing = JIMactions()
-
                         # Authenticating a user
                         if data.get(FIELD_ACTION) == ACT_AUTHENTICATE:
                             if processing.authenticate_user(w_client, data):
-                                logger.info("User {} is authenticated".format(data['user'].get('account_name')))
+                                logger.info("User {} is authenticated".format(data[FIELD_USER].get(FIELD_ACCOUNT_NAME)))
                                 send_message(conn, RESPONSE_OK.as_dict)
                             else:
                                 logger.info("User {} has provided wrong credentials"
-                                            .format(data['user'].get('account_name')))
+                                            .format(data[FIELD_USER].get(FIELD_ACCOUNT_NAME)))
                                 send_message(conn, RESPONSE_ERROR.as_dict)
                                 clients.remove(conn)
                                 conn.close()
                                 break
 
                         # Sending contacts
-                        if data.get(FIELD_ACTION) == ACT_GET_CONTACTS:
+                        elif data.get(FIELD_ACTION) == ACT_GET_CONTACTS:
                             contacts = processing.get_contacts(data)
                             send_message(conn, contacts)
 
@@ -136,10 +144,14 @@ class JIMserver:
 
                         # Adding contact
                         elif data.get(FIELD_ACTION) == ACT_ADD_CONTACT:
-                            if processing.add_contact(data):
-                                pass
+                            if processing.user_exist(data):
+                                send_message(conn, RESPONSE_OK.as_dict)
+                                logger.info('{} is checking: {} is registered'
+                                            .format(userid, data.get('contact_name').upper()))
                             else:
-                                logger.info('The contact already exists')
+                                send_message(conn, RESPONSE_ERROR.as_dict)
+                                logger.info('{} is checking: {} is not registerd'
+                                            .format(userid, data.get('contact_name').upper()))
 
                         # Resending normal messages to other user
                         elif data.get(FIELD_ACTION) == ACT_MSG:
@@ -147,7 +159,7 @@ class JIMserver:
 
 
 if __name__ == "__main__":
-    server = JIMserver(('', 10000))
-    server.start()
+    server = JIMserver('127.0.0.1', '8888')
+
 
 

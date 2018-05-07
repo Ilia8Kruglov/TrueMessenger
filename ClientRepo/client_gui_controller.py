@@ -23,18 +23,10 @@ class ChatWindow(QtWidgets.QDialog):
         self.controller = controller
         QtWidgets.QDialog.__init__(self, parent)
         uic.loadUi(chat_window_path, self)
-        self.txtNewMessage.keyPressEvent = self.key_event_handler
+        # self.txtNewMessage.keyPressEvent = self.key_event_handler
+        # self.setShortcut('Enter')
 
-    def key_event_handler(self, qKeyEvent):
-        print(qKeyEvent.key())
-        if qKeyEvent.key() == Qt.Key_Enter:
-            self.proceed()
-            self.controller.chat_handler()
-        else:
-            pass
 
-    def proceed(self):
-        print("Call Enter Key")
 
 
 class LoginWindow(QtWidgets.QDialog):
@@ -65,17 +57,17 @@ class GuiController:
         self.username = None
         self.password = None
         self.GuiListener = None
-        self.login_window = None
         self.authenticated = None
         self.main_window = MainWindow()
         self.chat_window = ChatWindow(self)
+        self.login_window = LoginWindow(self, self.main_window)
         self.main_window.btnAdd.clicked.connect(self.add_contact)
         self.main_window.btnDel.clicked.connect(self.del_contact)
         self.main_window.lstContacts.itemDoubleClicked.connect(self.start_new_chat)
         self.chat_window.btnSendMsg.clicked.connect(self.chat_handler)
+        self.run()
 
     def run(self):
-        self.login_window = LoginWindow(self, self.main_window)
         self.login_window.show()
         self.app.exec_()
 
@@ -100,8 +92,7 @@ class GuiController:
 
     def authenticate(self):
         self.client = Client(self.username, self.password)
-        self.client.start()
-        if self.client.authenticate_request():
+        if self.client.authenticate:
             self.authenticated = True
             self.connect()
         else:
@@ -109,7 +100,7 @@ class GuiController:
 
     def load_contacts(self):
         if self.authenticated:
-            contacts_list = self.client.get_contacts().get('message').split(',')
+            contacts_list = self.client.get_contacts()
             self.main_window.lstContacts.clear()
             for contact in contacts_list:
                 self.main_window.lstContacts.addItem(contact.strip())
@@ -118,13 +109,25 @@ class GuiController:
         if self.authenticated:
             try:
                 new_contact = self.main_window.lnContact.text()
-                if new_contact and not self.main_window.lstContacts.findItems(new_contact, Qt.MatchExactly):
+
+                if not new_contact:
+                    self.main_window.statusMessage.showMessage('Please provide a contact name', 2000)
+
+                elif not self.client.add_contact(new_contact):
+                    self.main_window.statusMessage.showMessage('\'{}\' is not registered'
+                                                               .format(new_contact), 2000)
+                    self.main_window.lnContact.clear()
+                elif new_contact and not self.main_window.lstContacts.findItems(new_contact, Qt.MatchExactly):
                     self.client.add_contact(new_contact)
                     self.main_window.lstContacts.addItem(new_contact)
                     self.main_window.lnContact.update()
                     self.main_window.lnContact.clear()
+                    self.main_window.statusMessage.showMessage('Done', 2000)
                 elif new_contact and self.main_window.lstContacts.findItems(new_contact, Qt.MatchExactly):
-                    self.main_window.statusMessage.showMessage('\'{}\' already in contact list'.format(new_contact), 2000)
+                    self.main_window.lnContact.clear()
+                    self.main_window.statusMessage.showMessage('\'{}\' already in contact list'
+                                                               .format(new_contact), 2000)
+
             except Exception as error:
                 print(error)
 
@@ -164,5 +167,5 @@ class GuiController:
 
 if __name__ == "__main__":
     app = GuiController()
-    app.run()
+
 

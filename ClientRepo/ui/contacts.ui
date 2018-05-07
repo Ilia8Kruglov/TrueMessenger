@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" idbasedtr="false">
+<ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -88,6 +88,9 @@
        </property>
        <property name="text">
         <string>ADD</string>
+       </property>
+       <property name="shortcut">
+        <string comment="Enter" extracomment="Enter">Return</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

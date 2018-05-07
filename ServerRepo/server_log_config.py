@@ -4,7 +4,7 @@ import sys, os
 
 
 LOG_FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
-SERVER_LOG_FILE_PATH = os.path.join(LOG_FOLDER_PATH, 'server_messages.log')
+SERVER_LOG_FILE_PATH = os.path.join(LOG_FOLDER_PATH, 'log', 'server_messages.log')
 
 logger = logging.getLogger('server.' + __name__)
 logger.setLevel(logging.DEBUG)

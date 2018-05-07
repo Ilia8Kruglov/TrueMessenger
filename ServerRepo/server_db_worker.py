@@ -6,7 +6,7 @@ from datetime import datetime
 from os import path
 
 db_folder_path = path.dirname(path.abspath(__file__))
-server_db = path.join(db_folder_path, 'server_db.sqlite')
+server_db = path.join(db_folder_path, 'db', 'server_db.sqlite')
 Base = declarative_base()
 
 
@@ -60,7 +60,7 @@ class ContactList(Base):
         self.contact_name = contact_name
 
     def __repr__(self):
-        return self.contact_name   
+        return self.contact_name
 
 
 class ServerDBworker(Connector):
@@ -136,6 +136,7 @@ class ServerDBworker(Connector):
         return True
 
 
+
 if __name__ == "__main__":
     user_req1 = {'account_name': 'test', 'status': 'Hey, Im here!', 'password': 'f770e2b4fc70acd481d2d2d72dc97c41c3a16e352cf53df3bc5c60366d10ebf67e0d813adffa0ff9482b565abcb770433dc0dbc68aa19b29254a4bebb695c508d9074c27c84e4bb3e7734a23965e1397a8210192c709e5d587b98575b5709c0e2a311276460294b895ee1c422e9b057ec8db140df794d6dc5621968cef394293'}
     user_req2 = {'account_name': 'Anna', 'status': 'Hey, Im here!', 'password': '7e931ec9b4e3fee688b25ac848959dfe94a4d91d2bee65505d4c56965f8dd73038b4c09e70f1bcc2665c763c735a9dcc2aefa8961761c4fdb6ed53868fff44abac3fc7b7423d9349db77fc60e647f41539e684a6518cf0175c24cd50bd4e33aeacb0ea7e0311733e85f539fb85f43a568fe9a385d32f640de2a66898c8f719b5'}
@@ -160,6 +161,7 @@ if __name__ == "__main__":
         store.add_contact('Anna', 'Alesha')
         print(store.get_contacts('Anna'))
         print(store.get_contacts('Anna', _count=True))
-        print(store.authenticate_user('Andrei', 'userPwd'))
+        # print(store.authenticate_user('Andrei', 'userPwd'))
+        print(store.account_registered('Vasya'))
         # print(store.del_contact('Anna', 'Alesha'))
 
