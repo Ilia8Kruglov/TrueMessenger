@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" idbasedtr="false">
  <class>dlgLogin</class>
  <widget class="QDialog" name="dlgLogin">
   <property name="windowModality">
@@ -37,6 +37,9 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>:/images/icons/chat1.ico</normaloff>:/images/icons/chat1.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <property name="modal">
    <bool>true</bool>

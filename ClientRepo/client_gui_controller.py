@@ -1,6 +1,7 @@
 from os import path
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QEvent
+from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtGui import QIcon, QPixmap
 from .client import Client
 from .gui_handler import GuiListener
 
@@ -17,12 +18,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 class ChatWindow(QtWidgets.QDialog):
-    keyPressed = pyqtSignal(QEvent)
 
     def __init__(self, controller, parent=None):
         self.controller = controller
         QtWidgets.QDialog.__init__(self, parent)
         uic.loadUi(chat_window_path, self)
+        # self.smileButton.resize(36,20)
+        self.smileButton.clicked.connect(self.clickMethod)
+        # c.setIcon(QIcon('ui/images/icons/release_smile_btn.png'))
+        # self.smileButton.setIcon(QIcon(QPixmap("ui/images/icons/release_smile_btn.png")))
+
+    def clickMethod(self):
+        print('Clicked Pyqt button.')
 
 
 class LoginWindow(QtWidgets.QDialog):
