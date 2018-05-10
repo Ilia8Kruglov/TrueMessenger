@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file>ui/images/icons/msg_icon.jpg</file>
-    <file>ui/images/icons/release_smile_btn.png</file>
-    <file>ui/images/icons/pressed_smile_btn.png</file>
-  </qresource>
-</RCC>

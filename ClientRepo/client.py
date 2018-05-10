@@ -33,7 +33,7 @@ class Client:
     def __init__(self, username, password):
         self.username = username
         self.password = create_strong_hash(password)
-        self.address = ('localhost', 8888)
+        self.address = ('localhost', 9999)
         self.tcp_socket = socket(AF_INET, SOCK_STREAM)
         self.storage = LocalStorage(username)
         self.receiver = None
@@ -89,13 +89,14 @@ class Client:
     def gui_send_messages(self, text):
             message = self.create_message(text)
             if self.connected:
+                print(json.dumps(message).encode('ascii'))
                 self.tcp_socket.send(json.dumps(message).encode('ascii'))
 
     def receive_message(self):
 
         while self.connected:
             try:
-                self.received_data = self.tcp_socket.recv(1024)
+                self.received_data = self.tcp_socket.recv(40960000)
                 if self.received_data:
                     json_data = json.loads(json.dumps(self.received_data.decode('ascii')))
                     return json_data

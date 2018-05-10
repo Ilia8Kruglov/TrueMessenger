@@ -1,9 +1,13 @@
 from os import path
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import Qt, QThread
+from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtCore import Qt, QThread, QSize
 from PyQt5.QtGui import QIcon, QPixmap
 from .client import Client
 from .gui_handler import GuiListener
+from .ui.chat import Ui_dlgChat
+from os import listdir
+from os.path import abspath, join, isdir, isfile
+from .html_parser import HtmlToShortTag
 
 client_folder_path = path.dirname(path.abspath(__file__))
 contact_ui_path = path.join(client_folder_path, 'ui', 'contacts.ui')
@@ -22,14 +26,50 @@ class ChatWindow(QtWidgets.QDialog):
     def __init__(self, controller, parent=None):
         self.controller = controller
         QtWidgets.QDialog.__init__(self, parent)
-        uic.loadUi(chat_window_path, self)
-        # self.smileButton.resize(36,20)
-        self.smileButton.clicked.connect(self.clickMethod)
-        # c.setIcon(QIcon('ui/images/icons/release_smile_btn.png'))
-        # self.smileButton.setIcon(QIcon(QPixmap("ui/images/icons/release_smile_btn.png")))
+        self.ui = Ui_dlgChat()
+        self.ui.setupUi(self)
+        # self.ui.smileButton.clicked.connect(self.smiles_bar)
+        self.ui.smileButton.setMenu(self.get_smiles())
+        self.ui.smileButton.clicked.connect(self.ui.smileButton.showMenu)
 
-    def clickMethod(self):
-        print('Clicked Pyqt button.')
+    def get_smiles(self):
+        smiles_folder = join('ClientRepo', 'ui', 'images', 'smiles')
+        if isdir(smiles_folder):
+            _smiles = [name for name in listdir(abspath(smiles_folder)) if isfile(join(smiles_folder, name))]
+            _menu = QtWidgets.QMenu()
+            _layout = QtWidgets.QGridLayout()
+            _menu.setLayout(_layout)
+            _count = 0
+            for row in range(5):
+                for column in range(5):
+                    try:
+                        _smile = join(smiles_folder, _smiles[_count])
+                        _icon = QIcon(_smile)
+                        _button = QtWidgets.QToolButton(self)
+                        _button.setFixedSize(QSize(32, 32))
+                        _button.setIcon(_icon)
+                        _button.setIconSize(_button.size())
+                        _button.setAutoRaise(True)
+                        _layout.addWidget(_button, row, column)
+                        _button.setToolTip(_smiles[_count].split('.')[0])
+                        _button.clicked.connect(self.insert_smile(_smile, self.ui))
+
+                        _count += 1
+
+                    except IndexError:
+                        break
+
+            return _menu
+
+        else:
+            self.ui.smileButton.setEnabled(False)
+
+    @staticmethod
+    def insert_smile(smile, chat):
+        def insert():
+            chat.txtNewMessage.textCursor().insertImage(smile)
+            chat.smileButton.menu().hide()
+        return insert
 
 
 class LoginWindow(QtWidgets.QDialog):
@@ -61,13 +101,14 @@ class GuiController:
         self.password = None
         self.GuiListener = None
         self.authenticated = None
+        self.html_parser = HtmlToShortTag()
         self.main_window = MainWindow()
         self.chat_window = ChatWindow(self)
         self.login_window = LoginWindow(self, self.main_window)
         self.main_window.btnAdd.clicked.connect(self.add_contact)
         self.main_window.btnDel.clicked.connect(self.del_contact)
         self.main_window.lstContacts.itemDoubleClicked.connect(self.start_new_chat)
-        self.chat_window.btnSendMsg.clicked.connect(self.chat_handler)
+        self.chat_window.ui.btnSendMsg.clicked.connect(self.chat_handler)
         self.run()
 
     def run(self):
@@ -156,16 +197,24 @@ class GuiController:
 
     def chat_handler(self):
         if self.authenticated:
-            text = self.chat_window.txtNewMessage.toPlainText()
-            if text:
+            text = self.chat_window.ui.txtNewMessage.toPlainText()
+            self.html_parser.feed(self.chat_window.ui.txtNewMessage.toHtml())
+            _message = self.html_parser.tagged_message
+            print(_message)
+            if _message:
                 self.client.gui_send_messages(text.strip())
-                self.chat_window.txtNewMessage.clear()
+                self.chat_window.ui.txtChatMessages.append(_message)
+                self.chat_window.ui.txtNewMessage.clear()
 
     def update_chat(self, data):
         try:
-            self.chat_window.txtChatMessages.append(data)
+            self.chat_window.ui.txtChatMessages.append(data)
+
         except Exception as e:
             print(e)
+
+    def update_toolbar(self):
+        pass
 
 
 if __name__ == "__main__":

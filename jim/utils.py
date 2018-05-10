@@ -26,6 +26,6 @@ def send_message(sock, message):
 
 
 def get_message(client):
-    eresponse = client.recv(1024)
+    eresponse = client.recv(40960000)
     response = bytes_to_dict(eresponse)
     return response
