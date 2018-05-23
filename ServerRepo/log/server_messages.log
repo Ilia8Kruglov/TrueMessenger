@@ -333,3 +333,21 @@
 2018-05-22 23:59:35,163: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'Anna', 'to': 'Andrei', 'message': 'dabsdkjab', 'action': 'msg', 'time': 'May 22, 2018 11:59 PM'}" to 6, ('127.0.0.1', 60405) 
 2018-05-22 23:59:39,225: INFO: server.ServerRepo.server_log_config: Client 6 ('127.0.0.1', 60405) disconnected 
 2018-05-22 23:59:41,656: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 60404) disconnected 
+2018-05-23 23:23:20,893: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-23 23:23:30,735: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 57516) 
+2018-05-23 23:23:30,736: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'test', 'status': 'Authenticating', 'password': 'f770e2b4fc70acd481d2d2d72dc97c41c3a16e352cf53df3bc5c60366d10ebf67e0d813adffa0ff9482b565abcb770433dc0dbc68aa19b29254a4bebb695c508d9074c27c84e4bb3e7734a23965e1397a8210192c709e5d587b98575b5709c0e2a311276460294b895ee1c422e9b057ec8db140df794d6dc5621968cef394293'}, 'action': 'authenticate', 'time': 'May 23, 2018 11:23 PM'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:30,767: INFO: server.ServerRepo.server_log_config: User test is authenticated 
+2018-05-23 23:23:35,248: INFO: server.ServerRepo.server_log_config: Received message: "{'from': 'test', 'action': 'msg', 'time': 'May 23, 2018 11:23 PM', 'message': 'daldnakl', 'to': 'Anna'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:35,248: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'test', 'action': 'msg', 'time': 'May 23, 2018 11:23 PM', 'message': 'daldnakl', 'to': 'Anna'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:41,025: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 57517) 
+2018-05-23 23:23:41,025: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 23, 2018 11:23 PM', 'action': 'authenticate', 'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'f770e2b4fc70acd481d2d2d72dc97c41c3a16e352cf53df3bc5c60366d10ebf67e0d813adffa0ff9482b565abcb770433dc0dbc68aa19b29254a4bebb695c508d9074c27c84e4bb3e7734a23965e1397a8210192c709e5d587b98575b5709c0e2a311276460294b895ee1c422e9b057ec8db140df794d6dc5621968cef394293'}}" to 6, ('127.0.0.1', 57517) 
+2018-05-23 23:23:41,031: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-23 23:23:41,038: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-23 23:23:46,324: INFO: server.ServerRepo.server_log_config: Received message: "{'from': 'Andrei', 'to': 'test', 'time': 'May 23, 2018 11:23 PM', 'action': 'msg', 'message': 'dadkamd'}" to 6, ('127.0.0.1', 57517) 
+2018-05-23 23:23:46,324: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'Andrei', 'to': 'test', 'time': 'May 23, 2018 11:23 PM', 'action': 'msg', 'message': 'dadkamd'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:46,325: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'Andrei', 'to': 'test', 'time': 'May 23, 2018 11:23 PM', 'action': 'msg', 'message': 'dadkamd'}" to 6, ('127.0.0.1', 57517) 
+2018-05-23 23:23:54,062: INFO: server.ServerRepo.server_log_config: Received message: "{'from': 'test', 'action': 'msg', 'time': 'May 23, 2018 11:23 PM', 'message': 'dasndakl', 'to': 'Andrei'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:54,062: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'test', 'action': 'msg', 'time': 'May 23, 2018 11:23 PM', 'message': 'dasndakl', 'to': 'Andrei'}" to 5, ('127.0.0.1', 57516) 
+2018-05-23 23:23:54,063: INFO: server.ServerRepo.server_log_config: Sending message: "{'from': 'test', 'action': 'msg', 'time': 'May 23, 2018 11:23 PM', 'message': 'dasndakl', 'to': 'Andrei'}" to 6, ('127.0.0.1', 57517) 
+2018-05-23 23:23:58,538: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 57516) disconnected 
+2018-05-23 23:23:59,554: INFO: server.ServerRepo.server_log_config: Client 6 ('127.0.0.1', 57517) disconnected 

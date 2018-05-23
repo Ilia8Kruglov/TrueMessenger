@@ -8,8 +8,7 @@ from .jim.config_common import *
 from .jim.utils import send_message, get_message
 from .security.pwdHashing import *
 from .client_db_worker import ClientDBworker
-from .security.encryption import load_key, encrypt, decrypt
-from os.path import abspath, join
+# from .security.encryption import load_key, encrypt, decrypt
 
 
 class LocalStorage:
