@@ -1,12 +1,15 @@
-from socket import socket, AF_INET, SOCK_STREAM
-from jim.jim_protocol import JIMActionMessage
-from jim.config_common import *
-from jim.utils import send_message, get_message
-from queue import Queue
-from .client_secure import *
-from .client_db_worker import ClientDBworker
 import sys
 import json
+from os import path
+from socket import socket, AF_INET, SOCK_STREAM
+from queue import Queue
+from .jim.jim_protocol import JIMActionMessage
+from .jim.config_common import *
+from .jim.utils import send_message, get_message
+from .security.pwdHashing import *
+from .client_db_worker import ClientDBworker
+from .security.encryption import load_key, encrypt, decrypt
+from os.path import abspath, join
 
 
 class LocalStorage:
@@ -80,16 +83,17 @@ class Client:
                 return True
         return False
 
-    def create_message(self, text):
-        return JIMActionMessage.to_all_users(self.username, text).as_dict
+    def create_message(self, sender, receiver, text):
+        return JIMActionMessage.to_user(sender, receiver, text).as_dict
 
     def get_contacts(self):
         return self.storage.get_contacts()
 
-    def gui_send_messages(self, text):
-            message = self.create_message(text)
+    def gui_send_messages(self, receiver, text):
+
+            message = self.create_message(self.username, receiver, text)
+            # print(message)
             if self.connected:
-                print(json.dumps(message).encode('ascii'))
                 self.tcp_socket.send(json.dumps(message).encode('ascii'))
 
     def receive_message(self):
@@ -105,6 +109,20 @@ class Client:
 
             except ConnectionError:
                 break
+
+    def encrypt(self, text):
+        folder = path.dirname(path.abspath(__file__))
+        publicKeyPath = path.join(folder, 'security', 'id_rsa-server.pub')
+        publicKey = load_key(publicKeyPath)
+        encrText = encrypt(text, publicKey)
+        return encrText
+
+    def decrypt(self, text):
+        folder = path.dirname(path.abspath(__file__))
+        privateKeyPath = path.join(folder, 'security', 'id_rsa')
+        privateKey = load_key(privateKeyPath)
+        decrText = decrypt(text, privateKey)
+        return decrText
 
     def close_session(self):
         self.tcp_socket.close()

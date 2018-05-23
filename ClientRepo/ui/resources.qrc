@@ -1,13 +1,18 @@
 <RCC>
-  <qresource prefix="/">
-    <file>images/icons/chat1.ico</file>
-    <file>images/icons/chat1.png</file>
-    <file>images/icons/minus.ico</file>
-    <file>images/icons/minus.png</file>
-    <file>images/icons/msg_icon.jpg</file>
-    <file>images/icons/plus.ico</file>
-    <file>images/icons/plus.png</file>
-    <file>images/icons/pressed_smile_btn.png</file>
-    <file>images/icons/release_smile_btn.png</file>
-  </qresource>
+    <qresource prefix="/">
+        <file>images/icons/chat1.png</file>
+        <file>images/icons/chat1.ico</file>
+        <file>images/icons/minus.ico</file>
+        <file>images/icons/minus.png</file>
+        <file>images/icons/msg_icon.jpg</file>
+        <file>images/icons/plus.ico</file>
+        <file>images/icons/plus.png</file>
+        <file>images/icons/pressed_smile_btn.png</file>
+        <file>images/icons/release_smile_btn.png</file>
+        <file>images/icons/b.jpg</file>
+        <file>images/icons/i.jpg</file>
+        <file>images/icons/u.jpg</file>
+        <file>images/icons/default_profile.png</file>
+        <file>images/icons/S.jpg</file>
+    </qresource>
 </RCC>

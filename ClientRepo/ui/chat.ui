@@ -20,8 +20,8 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
-    <normaloff>:/images/icons/chat1.ico</normaloff>:/images/icons/chat1.ico</iconset>
+   <iconset>
+    <normaloff>images/icons/chat1.ico</normaloff>images/icons/chat1.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
    <property name="spacing">
@@ -57,81 +57,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>80</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="smileButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>35</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#smileButton {
-border-image: url(:/images/icons/pressed_smile_btn.png);
-background-color: transparent;
-background: none;
-border: none;
-background-repeat: none;
-}
-
-#smileButton:pressed
-{
-border-image: url(:/images/icons/release_smile_btn.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>48</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-       <property name="Icon" stdset="0">
-        <iconset>
-         <normaloff>images/icons/smile_icon_button.png</normaloff>images/icons/smile_icon_button.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Minimum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
    </item>
    <item>
     <widget class="QTextEdit" name="txtNewMessage">

@@ -1,10 +1,10 @@
 from select import select
 from socket import socket, AF_INET, SOCK_STREAM
 from .server_log_config import logger
-from jim.utils import *
-from jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
+from .jim.utils import *
+from .jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
 from .server_db_worker import ServerDBworker
-from jim.config_common import *
+from .jim.config_common import *
 import sys, os
 
 sys.path.append(os.path.join(os.getcwd(), '..'))
