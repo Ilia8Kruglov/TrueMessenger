@@ -1,5 +1,3 @@
-# http://devarea.com/python-cryptographic-api/#.WwLBGci-m8U
-
 from Crypto.PublicKey import RSA
 from Crypto import Random
 from Crypto.Hash import MD5
@@ -41,8 +39,8 @@ def check_integrity():
 
 
 if __name__ == '__main__':
-    # generate_keys(2048)
-    publicKey = load_key('id_rsa-server.pub')
+    generate_keys(2048)
+    publicKey = load_key('id_rsa.pub')
     privateKey = load_key('id_rsa')
 
     msg = "hello python"

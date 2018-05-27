@@ -1,35 +1,48 @@
+# JIM Server
+# The server module provides TCP initialization with all clients running the same TCP port number
+# and connection to the server DB where user information is stored
+# Client - Server asymmetric encryption is being performed for all messages
+
+
 from select import select
 from socket import socket, AF_INET, SOCK_STREAM
 from .server_log_config import logger
 from .jim.utils import *
 from .jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
 from .server_db_worker import ServerDBworker
+from .security.pwdHashing import generate_hash
 from .jim.config_common import *
+from os import path
 import sys, os
 
 sys.path.append(os.path.join(os.getcwd(), '..'))
 
 
 class JIMHandler:
+    folder = path.dirname(path.abspath(__file__))
+    publicKeyPath = path.join(folder, 'security', 'id_rsa_client.pub')
+    privateKeyPath = path.join(folder, 'security', 'id_rsa_server')
 
-    @staticmethod
-    def read_requests(r_clients, all_clients):
+    def __init__(self):
+        self.publicKey = load_key(self.publicKeyPath)
+        self.privateKey = load_key(self.privateKeyPath)
+
+    def read_requests(self, r_clients, all_clients):
         requesters = {}
         for sock in r_clients:
             try:
-                data = get_message(sock)
+                data = get_message(sock, self.privateKey)
                 requesters[sock] = data
                 logger.info("Received message: \"{}\" to {}, {}".format(requesters[sock],
-                                                                        sock.fileno(), sock.getpeername()))
+                                                                            sock.fileno(), sock.getpeername()))
             except:
                 logger.info("Client {} {} disconnected" .format(sock.fileno(), sock.getpeername()))
                 all_clients.remove(sock)
         return requesters
 
-    @staticmethod
-    def write_responses(data, w_client, all_clients):
+    def write_responses(self, data, w_client, all_clients):
         try:
-            send_message(w_client, data)
+            send_message(w_client, data, self.publicKey)
             logger.info("Sending message: \"{}\" to {}, {}".format(data, w_client.fileno(), w_client.getpeername()))
         except:
             logger.info("Client {} {} disconnected".format(w_client.fileno(), w_client.getpeername()))
@@ -46,7 +59,7 @@ class JIMactions:
             password = message[FIELD_USER].get(FIELD_PASSWORD)
             ip = client.getpeername()
             store.add_history(username, ip)
-            return store.authenticate_user(username, password)
+            return store.authenticate_user(username, generate_hash(password))
 
     @staticmethod
     def add_contact(message):
@@ -82,10 +95,17 @@ class JIMactions:
 
 
 class JIMserver:
+    folder = path.dirname(path.abspath(__file__))
+    publicKeyPath = path.join(folder, 'security', 'id_rsa_client.pub')
+    privateKeyPath = path.join(folder, 'security', 'id_rsa_server')
+
     def __init__(self, ip, port):
         self.server = socket(AF_INET, SOCK_STREAM)
         self.server_address = (ip, int(port))
         self.handler = JIMHandler()
+        self.processing = JIMactions()
+        self.publicKey = load_key(self.publicKeyPath)
+        self.privateKey = load_key(self.privateKeyPath)
         self.start()
 
     def start(self):
@@ -107,8 +127,6 @@ class JIMserver:
                 wait = 0
                 input_ready = []
                 output_ready = []
-
-                # Start chat between users
                 try:
                     input_ready, output_ready, e = select(clients, clients, [], wait)
                 except:
@@ -118,40 +136,40 @@ class JIMserver:
                 for sock, data in requests.items():
                     userid = data.get(FIELD_USERID)
                     for w_client in output_ready:
-                        processing = JIMactions()
-                        # Authenticating a user
+
+                        # Authenticating an user
                         if data.get(FIELD_ACTION) == ACT_AUTHENTICATE:
-                            if processing.authenticate_user(w_client, data):
+                            if self.processing.authenticate_user(w_client, data):
                                 logger.info("User {} is authenticated".format(data[FIELD_USER].get(FIELD_ACCOUNT_NAME)))
-                                send_message(conn, RESPONSE_OK.as_dict)
+                                send_message(conn, RESPONSE_OK.as_dict, self.publicKey)
                             else:
                                 logger.info("User {} has provided wrong credentials"
                                             .format(data[FIELD_USER].get(FIELD_ACCOUNT_NAME)))
-                                send_message(conn, RESPONSE_ERROR.as_dict)
+                                send_message(conn, RESPONSE_ERROR.as_dict, self.publicKey)
                                 clients.remove(conn)
                                 conn.close()
                                 break
 
                         # Sending contacts
                         elif data.get(FIELD_ACTION) == ACT_GET_CONTACTS:
-                            contacts = processing.get_contacts(data)
-                            send_message(conn, contacts)
+                            contacts = self.processing.get_contacts(data)
+                            send_message(conn, contacts, self.publicKey)
 
                         # Deleting a contact
                         elif data.get(FIELD_ACTION) == ACT_DEL_CONTACT:
-                            if processing.del_contact(data):
+                            if self.processing.del_contact(data):
                                 pass
                             else:
                                 logger.info('The contact has already been deleted')
 
-                        # Adding contact
+                        # Adding contact (check only)
                         elif data.get(FIELD_ACTION) == ACT_ADD_CONTACT:
-                            if processing.user_exist(data):
-                                send_message(conn, RESPONSE_OK.as_dict)
+                            if self.processing.user_exist(data):
+                                send_message(conn, RESPONSE_OK.as_dict, self.publicKey)
                                 logger.info('{} is checking: {} is registered'
                                             .format(userid, data.get('contact_name').upper()))
                             else:
-                                send_message(conn, RESPONSE_ERROR.as_dict)
+                                send_message(conn, RESPONSE_ERROR.as_dict, self.publicKey)
                                 logger.info('{} is checking: {} is not registerd'
                                             .format(userid, data.get('contact_name').upper()))
 

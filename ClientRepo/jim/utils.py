@@ -1,30 +1,31 @@
 import json
+from ClientRepo.security.encryption import decrypt, encrypt
 
 
-def dict_to_bytes(dictionary):
+def dict_to_str(dictionary):
     if isinstance(dictionary, dict):
         jmessage = json.dumps(dictionary)
-        emessage = jmessage.encode('ascii')
     else:
         raise TypeError
-    return emessage
+    return jmessage
 
 
-def bytes_to_dict(emessage):
-    if isinstance(emessage, bytes):
-        message = emessage.decode('ascii')
+def str_to_dict(message):
+    if isinstance(message, str):
         jmessage = json.loads(message)
     else:
         raise TypeError
     return jmessage
 
 
-def send_message(sock, message):
-    request = dict_to_bytes(message)
-    sock.send(request)
+def send_message(sock, message, publicKey):
+    request = dict_to_str(message)
+    encrRequest = encrypt(request, publicKey)
+    sock.send(encrRequest)
 
 
-def get_message(client):
+def get_message(client, privateKey):
     eresponse = client.recv(40960000)
-    response = bytes_to_dict(eresponse)
-    return response
+    response = decrypt(eresponse, privateKey)
+    toDict = str_to_dict(response)
+    return toDict

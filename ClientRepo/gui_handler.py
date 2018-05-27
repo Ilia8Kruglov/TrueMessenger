@@ -23,8 +23,6 @@ class BaseReceiver:
                     self.request_queue.put(m)
                     while not self.request_queue.empty():
                         msg = self.request_queue.get()
-                        # if msg['action'] == 'msg':
-                        #     text_msg = "[{}] {}:   {}".format(msg.get('time'), msg.get('from'), msg.get('message'))
                         self.gotData.emit(msg)
             except Exception as e:
                 print(e)
