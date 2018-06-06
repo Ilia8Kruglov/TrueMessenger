@@ -1,6 +1,6 @@
 from os import path
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import Qt, QThread, QSize
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from os import listdir
 from os.path import abspath, join, isdir, isfile
@@ -8,17 +8,18 @@ from datetime import datetime
 from .client import Client
 from .gui_handler import GuiListener
 from .ui.chat import Ui_dlgChat
-from .html_parser import HtmlToShortTag
-from .config import *
+from .ui.contacts import Ui_MainWindow
+from .ui.login import Ui_dlgLogin
+from .htmlParser import HtmlToShortTag
+from .htmlForms import *
+from .imgHandler.imgWorker import ImageWorker
 
 
-client_folder_path = path.dirname(path.abspath(__file__))
-contact_ui_path = path.join(client_folder_path, 'ui', 'contacts.ui')
-login_window_path = path.join(client_folder_path, 'ui', 'login.ui')
-dt = datetime.now()
+folderAbs = path.dirname(path.abspath(__file__))
 
 
-class QCustomQWidget (QtWidgets.QWidget):
+class QCustomQWidget(QtWidgets.QWidget):
+
     def __init__(self, parent = None):
         super(QCustomQWidget, self).__init__(parent)
         self.textQVBoxLayout = QtWidgets.QVBoxLayout()
@@ -34,23 +35,39 @@ class QCustomQWidget (QtWidgets.QWidget):
             font-size: 16pt;
         ''')
 
-    def setText (self, text):
+    def setText(self, text):
         self.textUpQLabel.setText(text)
 
-    def setIcon (self, imagePath):
+    def setIcon(self, imagePath):
         self.iconQLabel.setPixmap(QPixmap(imagePath))
 
 
 class QCustomListWidgetItem(QtWidgets.QListWidgetItem):
-    def __init__(self, text, parent = None):
+    def __init__(self, text, parent=None):
         super(QCustomListWidgetItem, self).__init__(parent)
         self.text = text
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, parent=None):
+
+    def __init__(self, controller, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
-        uic.loadUi(contact_ui_path, self)
+        self.ui = Ui_MainWindow()
+        self.controller = controller
+        self.ui.setupUi(self)
+        self.mainMenuBar()
+
+    def mainMenuBar(self):
+        fileMenu = QtWidgets.QMenu("&File", self)
+        uploadAction = fileMenu.addAction("&Upload Photo...")
+        uploadAction.setShortcut("Ctrl+U")
+        uploadAction.triggered.connect(self.uploadImage)
+        self.menuBar().addMenu(fileMenu)
+
+    def uploadImage(self):
+        fnames = QtWidgets.QFileDialog.getOpenFileName(self, 'Upload the image')
+        if fnames[0]:
+            return self.controller.replaceDefaultAvatar(fnames[0])
 
 
 class ChatWindow(QtWidgets.QDialog):
@@ -71,7 +88,7 @@ class ChatWindow(QtWidgets.QDialog):
         self.ui.strike.triggered.connect(self.set_text_format(self.ui.strike))
 
     def get_smiles(self):
-        smiles_folder = join('ClientRepo', 'ui', 'images', 'smiles')
+        smiles_folder = path.join(folderAbs, 'ui', 'images', 'smiles')
         if isdir(smiles_folder):
             _smiles = [name for name in listdir(abspath(smiles_folder)) if isfile(join(smiles_folder, name))]
             _menu = QtWidgets.QMenu()
@@ -137,12 +154,14 @@ class ChatWindow(QtWidgets.QDialog):
 
 
 class LoginWindow(QtWidgets.QDialog):
+
     def __init__(self, controller, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        uic.loadUi(login_window_path, self)
-        self.buttonBox.accepted.connect(controller.get_client)
-        self.buttonBox.rejected.connect(self.parent().close)
-        self.lnPassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.ui = Ui_dlgLogin()
+        self.ui.setupUi(self)
+        self.ui.buttonBox.accepted.connect(controller.get_client)
+        self.ui.buttonBox.rejected.connect(self.parent().close)
+        self.ui.lnPassword.setEchoMode(QtWidgets.QLineEdit.Password)
         self.center()
 
     def center(self):
@@ -156,7 +175,10 @@ class LoginWindow(QtWidgets.QDialog):
 
 
 class GuiController:
+
     app = QtWidgets.QApplication([])
+    app.setApplicationName("TrueMessenger")
+    app.setApplicationDisplayName("TrueMessenger")
 
     def __init__(self):
         self.client = None
@@ -168,14 +190,17 @@ class GuiController:
         self.receiver = None
         self.receiver_room = None
         self.chat_window = None
+        self.sizer = None
+        self.defaultAvatar = None
         self.rooms = set()
         self.contacts_list = []
+        self.chatAvatars = []
         self.html_parser = HtmlToShortTag()
-        self.main_window = MainWindow()
+        self.main_window = MainWindow(self)
         self.login_window = LoginWindow(self, self.main_window)
-        self.main_window.btnAdd.clicked.connect(self.add_contact)
-        self.main_window.btnDel.clicked.connect(self.del_contact)
-        self.main_window.lstContacts.itemDoubleClicked.connect(self.start_new_chat)
+        self.main_window.ui.btnAdd.clicked.connect(self.add_contact)
+        self.main_window.ui.btnDel.clicked.connect(self.del_contact)
+        self.main_window.ui.lstContacts.itemDoubleClicked.connect(self.start_new_chat)
         self.run()
 
     def run(self):
@@ -183,8 +208,9 @@ class GuiController:
         self.app.exec_()
 
     def get_client(self):
-        self.username = self.login_window.lnLogin.text()
-        self.password = self.login_window.lnPassword.text()
+        self.username = self.login_window.ui.lnLogin.text()
+        self.password = self.login_window.ui.lnPassword.text()
+        self.defaultAvatar = self.setDefaultLogo()
         if self.username:
             self.authenticate()
         else:
@@ -211,17 +237,25 @@ class GuiController:
 
     def load_contacts(self):
         if self.authenticated:
+            imgWorker = ImageWorker(self)
             self.contacts_list = self.client.get_contacts()
-            self.main_window.lstContacts.clear()
+            self.main_window.ui.lstContacts.clear()
+            logoPath = path.join(folderAbs, 'ContactListAvatars/')
+            defaultImage = path.join(folderAbs, 'ContactListAvatars', 'list_default_image.png')
             for contact in self.contacts_list:
-                icon = 'ClientRepo/ui/images/icons/list_default_image'
-                myQCustomQWidget = self.contact_widget(icon, contact)
-                myQListWidgetItem = QCustomListWidgetItem(contact, self.main_window.lstContacts)
+                # Download images for contacts in the list
+                downloadedImg = self.client.ftp.downloadFile(contact)
+                contactLogo = imgWorker.createListAvatar(contact, logoPath, downloadedImg, defaultImage)
+                # Add images for the chat rooms
+                if downloadedImg:
+                    self.chatAvatars.append(contact)
+                myQCustomQWidget = self.contact_widget(contactLogo, contact)
+                myQListWidgetItem = QCustomListWidgetItem(contact, self.main_window.ui.lstContacts)
                 myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
                 self.chat_window = ChatWindow(self, contact, self.username)
                 self.rooms.add(self.chat_window)
-                self.main_window.lstContacts.addItem(myQListWidgetItem)
-                self.main_window.lstContacts.setItemWidget(myQListWidgetItem, myQCustomQWidget)
+                self.main_window.ui.lstContacts.addItem(myQListWidgetItem)
+                self.main_window.ui.lstContacts.setItemWidget(myQListWidgetItem, myQCustomQWidget)
 
     @staticmethod
     def contact_widget(icon, contact):
@@ -233,30 +267,29 @@ class GuiController:
     def add_contact(self):
         if self.authenticated:
             try:
-                new_contact = self.main_window.lnContact.text()
+                new_contact = self.main_window.ui.lnContact.text()
                 if not new_contact:
-                    self.main_window.statusMessage.showMessage('Please provide a contact name', 2000)
+                    self.main_window.ui.statusMessage.showMessage('Please provide a contact name', 2000)
                 elif not self.client.add_contact(new_contact):
-                    self.main_window.statusMessage.showMessage('\'{}\' is not registered'
-                                                               .format(new_contact), 2000)
-                    self.main_window.lnContact.clear()
+                    self.main_window.ui.statusMessage.showMessage('\'{}\' is not registered'.format(new_contact), 2000)
+                    self.main_window.ui.lnContact.clear()
                 elif new_contact and new_contact in self.contacts_list:
-                    self.main_window.lnContact.clear()
-                    self.main_window.statusMessage.showMessage('\'{}\' already in contact list'
-                                                               .format(new_contact), 2000)
+                    self.main_window.ui.lnContact.clear()
+                    self.main_window.ui.statusMessage.showMessage('\'{}\' already in contact list'.format(new_contact),
+                                                                  2000)
                 elif new_contact and not new_contact in self.contacts_list:
                     icon = 'ClientRepo/ui/images/icons/list_default_image'
                     self.chat_window = ChatWindow(self, new_contact, self.username)
                     myQCustomQWidget = self.contact_widget(icon, new_contact.strip())
-                    newContactItem = QCustomListWidgetItem(new_contact, self.main_window.lstContacts)
+                    newContactItem = QCustomListWidgetItem(new_contact, self.main_window.ui.lstContacts)
                     newContactItem.setSizeHint(myQCustomQWidget.sizeHint())
                     self.client.add_contact(new_contact)
-                    self.main_window.lstContacts.addItem(newContactItem)
-                    self.main_window.lstContacts.setItemWidget(newContactItem, myQCustomQWidget)
-                    self.main_window.lnContact.update()
-                    self.main_window.lnContact.clear()
+                    self.main_window.ui.lstContacts.addItem(newContactItem)
+                    self.main_window.ui.lstContacts.setItemWidget(newContactItem, myQCustomQWidget)
+                    self.main_window.ui.lnContact.update()
+                    self.main_window.ui.lnContact.clear()
                     self.rooms.add(self.chat_window)
-                    self.main_window.statusMessage.showMessage('Done', 2000)
+                    self.main_window.ui.statusMessage.showMessage('Done', 2000)
                 else:
                     pass
 
@@ -266,11 +299,11 @@ class GuiController:
     def del_contact(self):
         if self.authenticated:
             try:
-                contact = self.main_window.lstContacts.currentItem()
+                contact = self.main_window.ui.lstContacts.currentItem()
                 username = contact.text
-                self.main_window.lstContacts.takeItem(self.main_window.lstContacts.row(contact))
+                self.main_window.ui.lstContacts.takeItem(self.main_window.ui.lstContacts.row(contact))
                 self.client.del_contact(username)
-                self.main_window.lnContact.update()
+                self.main_window.ui.lnContact.update()
                 del contact
                 self.contacts_list.remove(username)
                 self.main_window.statusMessage.showMessage('\'{}\' has been deleted'.format(username), 2000)
@@ -280,44 +313,78 @@ class GuiController:
     def start_new_chat(self):
         if self.authenticated:
             sender = self.client.username
-            self.receiver = self.main_window.lstContacts.currentItem().text
+            self.receiver = self.main_window.ui.lstContacts.currentItem().text
             self.receiver_room = self.chat_room_gateway(self.receiver)
             self.receiver_room.setWindowTitle('TrueMessenger - {} in chat with {}'.format(sender, self.receiver))
             self.receiver_room.exec()
 
     def chat_handler(self):
+        dt = datetime.now()
         if self.authenticated:
             self.html_parser.feed(self.receiver_room.ui.txtNewMessage.toHtml())
             _message = self.html_parser.tagged_message
-            msg_to_displ = outgoing_new_msg_table.format(str(dt.strftime("%b %d, %Y %I:%M %p")),
-                                                self.default_user_logo(),
-                                                self.username, _message)
+            msg_to_displ = outgoing_new_msg_table.format(str(dt.strftime("%b %d, %Y %I:%M %p")), self.defaultAvatar,
+                                                         self.username, _message)
             if _message:
                 self.client.gui_send_messages(self.receiver, _message)
                 self.receiver_room.ui.txtChatMessages.append(msg_to_displ)
                 self.receiver_room.ui.txtNewMessage.clear()
 
     def update_chat(self, msg):
-        try:
-            if msg['action'] == 'msg' and msg['to'] == self.username:
-                text_msg = incoming_new_msg_table.format(msg.get('time'), self.default_user_logo(),
-                                                msg.get('from'), msg.get('message'))
-                _from_user = msg.get('from')
-                recevier_room_input = self.chat_room_gateway(_from_user)
-                recevier_room_input.ui.txtChatMessages.append(text_msg)
-        except Exception as e:
-            print(e)
+
+        """
+        Update and configure parameters for incoming messages
+        """
+
+        if self.authenticated:
+            try:
+                defaultPeerLogoPath = path.join(folderAbs, 'imgHandler', 'avatars', 'default_profile.png')
+                defaultPeerLogo = '<img src="{}"/>'.format(defaultPeerLogoPath)
+                if msg['action'] == 'msg' and msg['to'] == self.username:
+                    _from_user = msg.get('from')
+                    if _from_user in self.chatAvatars:
+                        peer_chat_room_logo = self.setCustomLogo(_from_user)
+                    else:
+                        peer_chat_room_logo = defaultPeerLogo
+                    text_msg = incoming_new_msg_table.format(peer_chat_room_logo, msg.get('time'), _from_user,
+                                                    msg.get('message'))
+                    recevier_room_input = self.chat_room_gateway(_from_user)
+                    recevier_room_input.ui.txtChatMessages.append(text_msg)
+            except Exception as e:
+                print(e)
 
     def chat_room_gateway(self, _from_user):
         recevier_room = [room for room in self.rooms if _from_user == room._sender]
         return recevier_room[0]
 
-    @staticmethod
-    def default_user_logo():
-        logo_folder = join('ClientRepo', 'ui', 'images', 'icons')
-        _logoPath = join(logo_folder, 'default_profile.png')
-        _defaultLogo = '<img src="{}"/>'.format(_logoPath)
-        return _defaultLogo
+    def setDefaultLogo(self):
+
+        """ Set default logo for chat rooms """
+
+        avatarFolder = listdir(path.join(folderAbs, 'imgHandler', 'avatars'))
+        interestedImage = '{}.png'.format(self.username)
+        if interestedImage in avatarFolder:
+            logo = interestedImage
+        else:
+            logo = 'default_profile.png'
+        _defaultlogoPath = path.join(folderAbs, 'imgHandler', 'avatars', logo)
+        _defaultLogoHtml = '<img src="{}"/>'.format(_defaultlogoPath)
+        return _defaultLogoHtml
+
+    def setCustomLogo(self, name):
+        """ Set custom logo for chat rooms """
+        _logoPath = path.join(folderAbs, 'avatars', name)
+        _customtLogoHtml = '<img src="{}"/>'.format(_logoPath)
+        return _customtLogoHtml
+
+    def replaceDefaultAvatar(self, newImage):
+        imgWorker = ImageWorker(self)
+        # Resize the photo according to the standard
+        resizedAvatar = imgWorker.createAvatar(newImage)
+        htmlImg = '<img src="{}"/>'.format(resizedAvatar)
+        self.defaultAvatar = htmlImg
+        # Upload the photo to the server
+        self.client.ftp.uploadFile(resizedAvatar, self.username)
 
 
 if __name__ == "__main__":

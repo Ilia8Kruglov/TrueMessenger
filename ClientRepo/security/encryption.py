@@ -1,6 +1,6 @@
-from Crypto.PublicKey import RSA
-from Crypto import Random
-from Crypto.Hash import MD5
+from .crypto.PublicKey import RSA
+from .crypto import Random
+from .crypto.Hash import MD5
 
 
 def generate_keys(key_length):

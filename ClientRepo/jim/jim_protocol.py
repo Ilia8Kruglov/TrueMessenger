@@ -1,12 +1,11 @@
 from datetime import datetime
-
 from .config_common import *
 
 FORMAT_ACTION = {FIELD_NAME: FIELD_ACTION, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 15}
 FORMAT_ALERT = {FIELD_NAME: FIELD_ALERT, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 128}
 FORMAT_ERROR = {FIELD_NAME: FIELD_ERROR, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 128}
 FORMAT_RESPONSE = {FIELD_NAME: FIELD_RESPONSE, FIELD_VALUE: 000, FIELD_TYPE: int, FIELD_LENGTH: 3}
-FORMAT_MESSAGE = {FIELD_NAME: FIELD_MESSAGE, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 1000}
+FORMAT_MESSAGE = {FIELD_NAME: FIELD_MESSAGE, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 30000}
 FORMAT_TIME = {FIELD_NAME: FIELD_TIME, FIELD_VALUE: 20180101, FIELD_TYPE: str, FIELD_LENGTH: 50}
 FORMAT_USER = {FIELD_NAME: FIELD_USER, FIELD_VALUE: '', FIELD_TYPE: dict, FIELD_LENGTH: 3}
 FORMAT_MSG_TYPE = {FIELD_NAME: FIELD_MSG_TYPE, FIELD_VALUE: '', FIELD_TYPE: str, FIELD_LENGTH: 15}
@@ -121,6 +120,10 @@ class JIMActionMessage:
     def del_contact(user, contact):
         return JIMActionMessage(action=ACT_DEL_CONTACT, user_id=user, contact_name=contact)
 
+    @staticmethod
+    def add_avatar(user, message):
+        return JIMActionMessage(action=ACT_AVATAR, sender=user, message=message)
+
 
 class JIMResponseMessage:
     alert = ProtocolDescriptor(**FORMAT_ALERT)
@@ -174,6 +177,6 @@ if __name__ == '__main__':
     # print(JIMActionMessage.contact_list('Andrei', 'Vasya, Anna').as_dict)
     # print(JIMActionMessage.del_contact('Andrei', 'Vasya').as_dict)
 
-    print(JIMActionMessage.to_user('Andrei', 'Anna', 'hello guys').as_dict)
+    print(JIMActionMessage.add_avatar('Andrei', 'iVBORw0KGgoAAAANSUhEUg').as_dict)
 
 

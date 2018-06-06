@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, BLOB
 from sqlalchemy.ext.declarative import declarative_base
 from .client_db_init import Connector
 from os import path
@@ -12,6 +12,7 @@ class Contact(Base):
     __tablename__ = 'Contacts'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
+    avatar = Column(BLOB)
 
     def __init__(self, contact_name):
         self.name = contact_name
@@ -45,6 +46,9 @@ class ClientDBworker(Connector):
                 self.session.delete(delete_query)
                 return True
         return False
+
+    def upload_avatar(self):
+        pass
 
     @property
     def get_contacts(self):

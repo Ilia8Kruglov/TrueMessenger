@@ -1,0 +1,168 @@
+2018-05-30 21:52:27,725: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-30 21:52:33,628: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 60333) 
+2018-05-30 21:52:33,639: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'action': 'authenticate', 'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:33,702: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 21:52:42,430: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dansjkdbasjkdbaksjbd', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:42,430: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dansjkdbasjkdbaksjbd', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:45,891: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Smiling_large.png"/>', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:45,891: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Smiling_large.png"/>', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:48,548: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'djkabsdjkabsdjkbasjda', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:48,549: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'djkabsdjkabsdjkbasjda', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:51,395: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dasbdkjabdkjba', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:51,395: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dasbdkjabdkjba', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:56,670: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dla;sjd;ajsd', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:52:56,672: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:52 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'dla;sjd;ajsd', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:01,956: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'damb,sndlbal', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:01,956: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'damb,sndlbal', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:05,007: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:05,007: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:05,834: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:05,834: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:06,462: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:06,462: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'f', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:07,487: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'adsda', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:07,487: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 09:53 PM', 'from': 'Andrei', 'to': 'Valera', 'message': 'adsda', 'action': 'msg'}" to 5, ('127.0.0.1', 60333) 
+2018-05-30 21:53:10,922: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 60333) disconnected 
+2018-05-30 22:03:26,332: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-30 22:03:33,397: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 60441) 
+2018-05-30 22:03:33,409: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate', 'time': 'May 30, 2018 10:03 PM'}" to 5, ('127.0.0.1', 60441) 
+2018-05-30 22:03:33,491: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 22:03:38,377: INFO: server.ServerRepo.server_log_config: Received message: "{'action': 'add_contact', 'contact_name': 'Anna', 'user_id': 'Andrei', 'time': 'May 30, 2018 10:03 PM'}" to 5, ('127.0.0.1', 60441) 
+2018-05-30 22:03:38,383: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:03:38,602: INFO: server.ServerRepo.server_log_config: Received message: "{'action': 'add_contact', 'contact_name': 'Anna', 'user_id': 'Andrei', 'time': 'May 30, 2018 10:03 PM'}" to 5, ('127.0.0.1', 60441) 
+2018-05-30 22:03:38,606: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:04:00,481: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 60441) disconnected 
+2018-05-30 22:04:06,298: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 60453) 
+2018-05-30 22:04:06,513: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'time': 'May 30, 2018 10:04 PM', 'action': 'authenticate'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:06,554: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 22:04:12,435: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:12,441: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:04:12,657: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:12,661: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:04:20,183: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:20,187: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:04:20,405: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:20,409: INFO: server.ServerRepo.server_log_config: Andrei is checking: ANNA is registered 
+2018-05-30 22:04:26,300: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Vladimir', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:26,304: INFO: server.ServerRepo.server_log_config: Andrei is checking: VLADIMIR is not registerd 
+2018-05-30 22:04:30,788: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Volodya', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:30,792: INFO: server.ServerRepo.server_log_config: Andrei is checking: VOLODYA is not registerd 
+2018-05-30 22:04:33,853: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Valera', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:33,856: INFO: server.ServerRepo.server_log_config: Andrei is checking: VALERA is registered 
+2018-05-30 22:04:34,069: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Valera', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:34,072: INFO: server.ServerRepo.server_log_config: Andrei is checking: VALERA is registered 
+2018-05-30 22:04:35,913: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Leo', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:35,917: INFO: server.ServerRepo.server_log_config: Andrei is checking: LEO is registered 
+2018-05-30 22:04:36,129: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Leo', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:36,132: INFO: server.ServerRepo.server_log_config: Andrei is checking: LEO is registered 
+2018-05-30 22:04:39,590: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Alesha', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:39,594: INFO: server.ServerRepo.server_log_config: Andrei is checking: ALESHA is registered 
+2018-05-30 22:04:39,810: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Alesha', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:39,814: INFO: server.ServerRepo.server_log_config: Andrei is checking: ALESHA is registered 
+2018-05-30 22:04:42,869: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Alesya', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:42,873: INFO: server.ServerRepo.server_log_config: Andrei is checking: ALESYA is registered 
+2018-05-30 22:04:43,090: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Alesya', 'time': 'May 30, 2018 10:04 PM', 'user_id': 'Andrei', 'action': 'add_contact'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:43,093: INFO: server.ServerRepo.server_log_config: Andrei is checking: ALESYA is registered 
+2018-05-30 22:04:47,976: INFO: server.ServerRepo.server_log_config: Received message: "{'message': 'dalskdjak', 'time': 'May 30, 2018 10:04 PM', 'from': 'Andrei', 'action': 'msg', 'to': 'Anna'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:04:47,976: INFO: server.ServerRepo.server_log_config: Sending message: "{'message': 'dalskdjak', 'time': 'May 30, 2018 10:04 PM', 'from': 'Andrei', 'action': 'msg', 'to': 'Anna'}" to 7, ('127.0.0.1', 60453) 
+2018-05-30 22:05:03,792: INFO: server.ServerRepo.server_log_config: Client 7 ('127.0.0.1', 60453) disconnected 
+2018-05-30 23:10:43,232: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-30 23:10:48,818: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 61935) 
+2018-05-30 23:10:49,039: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'authenticate', 'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:49,112: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 23:10:52,176: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dasdsa', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:52,177: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dasdsa', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:53,412: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dasda', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:53,413: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dasda', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:55,048: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'daknsdajndsajn', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:55,049: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'daknsdajndsajn', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:56,270: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dansdjkands', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:10:56,270: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:10 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dansdjkands', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:02,175: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'ajdsjahs', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:02,175: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'ajdsjahs', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:03,813: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dajsdhoahs', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:03,814: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dajsdhoahs', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:05,245: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dandsahd', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:05,246: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dandsahd', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:07,694: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'alnsdoahsdoa', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:07,695: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'alnsdoahsdoa', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:11,563: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Sunglasses_cool_emoji_large.png"/>', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:11,563: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Sunglasses_cool_emoji_large.png"/>', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:13,410: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dansoduna', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:13,410: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dansoduna', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:16,675: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Cowboy_emoji.png"/>', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:16,676: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': '<img src="ClientRepo/ui/images/smiles/Emoji_Icon_-_Cowboy_emoji.png"/>', 'to': 'Alesya'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:49,488: INFO: server.ServerRepo.server_log_config: Received message: "{'user_id': 'Andrei', 'time': 'May 30, 2018 11:11 PM', 'action': 'add_contact', 'contact_name': 'dasndajn'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:49,492: INFO: server.ServerRepo.server_log_config: Andrei is checking: DASNDAJN is not registerd 
+2018-05-30 23:11:52,945: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dnajksdn', 'to': 'Leo'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:52,946: INFO: server.ServerRepo.server_log_config: Sending message: "{'time': 'May 30, 2018 11:11 PM', 'action': 'msg', 'from': 'Andrei', 'message': 'dnajksdn', 'to': 'Leo'}" to 5, ('127.0.0.1', 61935) 
+2018-05-30 23:11:55,790: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 61935) disconnected 
+2018-05-30 23:20:00,044: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62000) 
+2018-05-30 23:20:00,260: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate', 'time': 'May 30, 2018 11:20 PM'}" to 7, ('127.0.0.1', 62000) 
+2018-05-30 23:20:00,303: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 23:20:02,744: INFO: server.ServerRepo.server_log_config: Client 7 ('127.0.0.1', 62000) disconnected 
+2018-05-30 23:20:27,492: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62004) 
+2018-05-30 23:20:27,706: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andtei', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate', 'time': 'May 30, 2018 11:20 PM'}" to 5, ('127.0.0.1', 62004) 
+2018-05-30 23:20:27,740: INFO: server.ServerRepo.server_log_config: User Andtei has provided wrong credentials 
+2018-05-30 23:20:30,972: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62006) 
+2018-05-30 23:20:31,188: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate', 'time': 'May 30, 2018 11:20 PM'}" to 5, ('127.0.0.1', 62006) 
+2018-05-30 23:20:31,228: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 23:20:55,754: INFO: server.ServerRepo.server_log_config: Received message: "{'to': 'Alesya', 'from': 'Andrei', 'message': 'ajsbdkajbs', 'action': 'msg', 'time': 'May 30, 2018 11:20 PM'}" to 5, ('127.0.0.1', 62006) 
+2018-05-30 23:20:55,755: INFO: server.ServerRepo.server_log_config: Sending message: "{'to': 'Alesya', 'from': 'Andrei', 'message': 'ajsbdkajbs', 'action': 'msg', 'time': 'May 30, 2018 11:20 PM'}" to 5, ('127.0.0.1', 62006) 
+2018-05-30 23:20:59,404: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 62006) disconnected 
+2018-05-30 23:24:53,716: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-30 23:25:04,700: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62079) 
+2018-05-30 23:25:04,711: INFO: server.ServerRepo.server_log_config: Received message: "{'action': 'authenticate', 'time': 'May 30, 2018 11:25 PM', 'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}}" to 5, ('127.0.0.1', 62079) 
+2018-05-30 23:26:43,902: INFO: server.ServerRepo.server_log_config: The chat server has started successfully 
+2018-05-30 23:26:51,884: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62090) 
+2018-05-30 23:26:52,103: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:26 PM', 'user': {'account_name': 'test', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate'}" to 5, ('127.0.0.1', 62090) 
+2018-05-30 23:26:52,176: INFO: server.ServerRepo.server_log_config: User test is authenticated 
+2018-05-30 23:26:52,381: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 62090) disconnected 
+2018-05-30 23:30:19,239: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62119) 
+2018-05-30 23:30:19,250: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'time': 'May 30, 2018 11:30 PM', 'action': 'authenticate'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:19,290: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 23:30:24,374: INFO: server.ServerRepo.server_log_config: Received message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dasdnajlskn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:24,374: INFO: server.ServerRepo.server_log_config: Sending message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dasdnajlskn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:25,609: INFO: server.ServerRepo.server_log_config: Received message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dansbdkjabdn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:25,610: INFO: server.ServerRepo.server_log_config: Sending message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dansbdkjabdn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:26,631: INFO: server.ServerRepo.server_log_config: Received message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dansdjkabn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:26,632: INFO: server.ServerRepo.server_log_config: Sending message: "{'to': 'Alesha', 'time': 'May 30, 2018 11:30 PM', 'action': 'msg', 'message': 'dansdjkabn', 'from': 'Andrei'}" to 7, ('127.0.0.1', 62119) 
+2018-05-30 23:30:29,475: INFO: server.ServerRepo.server_log_config: Client 7 ('127.0.0.1', 62119) disconnected 
+2018-05-30 23:30:41,732: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62122) 
+2018-05-30 23:30:41,950: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'Andrei', 'status': 'Authenticating', 'password': 'test'}, 'time': 'May 30, 2018 11:30 PM', 'action': 'authenticate'}" to 5, ('127.0.0.1', 62122) 
+2018-05-30 23:30:41,995: INFO: server.ServerRepo.server_log_config: User Andrei is authenticated 
+2018-05-30 23:30:44,640: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 62122) disconnected 
+2018-05-30 23:30:48,295: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62123) 
+2018-05-30 23:30:48,511: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:30 PM', 'user': {'account_name': 'test', 'status': 'Authenticating', 'password': 'test'}, 'action': 'authenticate'}" to 7, ('127.0.0.1', 62123) 
+2018-05-30 23:30:48,549: INFO: server.ServerRepo.server_log_config: User test is authenticated 
+2018-05-30 23:30:48,755: INFO: server.ServerRepo.server_log_config: Client 7 ('127.0.0.1', 62123) disconnected 
+2018-05-30 23:31:05,455: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62127) 
+2018-05-30 23:31:05,674: INFO: server.ServerRepo.server_log_config: Received message: "{'time': 'May 30, 2018 11:31 PM', 'action': 'authenticate', 'user': {'account_name': 'test', 'status': 'Authenticating', 'password': 'test'}}" to 5, ('127.0.0.1', 62127) 
+2018-05-30 23:31:05,717: INFO: server.ServerRepo.server_log_config: User test is authenticated 
+2018-05-30 23:31:05,920: INFO: server.ServerRepo.server_log_config: Client 5 ('127.0.0.1', 62127) disconnected 
+2018-05-30 23:32:04,723: INFO: server.ServerRepo.server_log_config: Received connection request from ('127.0.0.1', 62134) 
+2018-05-30 23:32:04,942: INFO: server.ServerRepo.server_log_config: Received message: "{'user': {'account_name': 'test', 'status': 'Authenticating', 'password': 'test'}, 'time': 'May 30, 2018 11:32 PM', 'action': 'authenticate'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:04,985: INFO: server.ServerRepo.server_log_config: User test is authenticated 
+2018-05-30 23:32:08,246: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Andrei', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:08,250: INFO: server.ServerRepo.server_log_config: test is checking: ANDREI is registered 
+2018-05-30 23:32:08,465: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Andrei', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:08,469: INFO: server.ServerRepo.server_log_config: test is checking: ANDREI is registered 
+2018-05-30 23:32:10,516: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:10,519: INFO: server.ServerRepo.server_log_config: test is checking: ANNA is registered 
+2018-05-30 23:32:10,735: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Anna', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:10,739: INFO: server.ServerRepo.server_log_config: test is checking: ANNA is registered 
+2018-05-30 23:32:12,777: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Valera', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:12,781: INFO: server.ServerRepo.server_log_config: test is checking: VALERA is registered 
+2018-05-30 23:32:12,999: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Valera', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:13,003: INFO: server.ServerRepo.server_log_config: test is checking: VALERA is registered 
+2018-05-30 23:32:14,640: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Leo', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:14,643: INFO: server.ServerRepo.server_log_config: test is checking: LEO is registered 
+2018-05-30 23:32:14,857: INFO: server.ServerRepo.server_log_config: Received message: "{'contact_name': 'Leo', 'user_id': 'test', 'time': 'May 30, 2018 11:32 PM', 'action': 'add_contact'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:14,861: INFO: server.ServerRepo.server_log_config: test is checking: LEO is registered 
+2018-05-30 23:32:17,914: INFO: server.ServerRepo.server_log_config: Received message: "{'message': ',dnasdjnaj', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:17,914: INFO: server.ServerRepo.server_log_config: Sending message: "{'message': ',dnasdjnaj', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:19,146: INFO: server.ServerRepo.server_log_config: Received message: "{'message': 'dlkansdklans', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:19,147: INFO: server.ServerRepo.server_log_config: Sending message: "{'message': 'dlkansdklans', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:20,589: INFO: server.ServerRepo.server_log_config: Received message: "{'message': 'dlandlansdjnaskjd', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:20,590: INFO: server.ServerRepo.server_log_config: Sending message: "{'message': 'dlandlansdjnaskjd', 'time': 'May 30, 2018 11:32 PM', 'action': 'msg', 'to': 'Leo', 'from': 'test'}" to 7, ('127.0.0.1', 62134) 
+2018-05-30 23:32:23,008: INFO: server.ServerRepo.server_log_config: Client 7 ('127.0.0.1', 62134) disconnected 

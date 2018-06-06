@@ -6,12 +6,15 @@
 
 from select import select
 from socket import socket, AF_INET, SOCK_STREAM
+from threading import Thread
 from .server_log_config import logger
 from .jim.utils import *
 from .jim.jim_protocol import JIMActionMessage, RESPONSE_OK, RESPONSE_ERROR
 from .server_db_worker import ServerDBworker
 from .security.pwdHashing import generate_hash
+from .imgHandler.imgWorker import from_str_to_img
 from .jim.config_common import *
+from .ftp_server import FTPserver
 from os import path
 import sys, os
 
@@ -34,7 +37,7 @@ class JIMHandler:
                 data = get_message(sock, self.privateKey)
                 requesters[sock] = data
                 logger.info("Received message: \"{}\" to {}, {}".format(requesters[sock],
-                                                                            sock.fileno(), sock.getpeername()))
+                                                                                sock.fileno(), sock.getpeername()))
             except:
                 logger.info("Client {} {} disconnected" .format(sock.fileno(), sock.getpeername()))
                 all_clients.remove(sock)
@@ -86,8 +89,20 @@ class JIMactions:
     @staticmethod
     def user_exist(message):
         with ServerDBworker() as store:
-            user = message.get('contact_name')
+            user = message.get(FIELD_CONTACT_NAME)
             return store.account_registered(user)
+
+    @staticmethod
+    def uploadImage(message):
+        user = message.get(FIELD_USERID)
+        imgString = message.get('message')
+        imgBytes = from_str_to_img(imgString)
+        with ServerDBworker() as store:
+            return store.upload_image(user, imgBytes)
+
+    @staticmethod
+    def downloadImage(message):
+        pass
 
     @staticmethod
     def create_user():
@@ -104,6 +119,7 @@ class JIMserver:
         self.server_address = (ip, int(port))
         self.handler = JIMHandler()
         self.processing = JIMactions()
+        self.ftpServer = FTPserver(ip, 1026)
         self.publicKey = load_key(self.publicKeyPath)
         self.privateKey = load_key(self.privateKeyPath)
         self.start()
@@ -114,6 +130,11 @@ class JIMserver:
         self.server.settimeout(0.2)
         clients = []
         logger.info("The chat server has started successfully")
+
+        # Start FTP-server
+        th = Thread(target=self.ftpServer.run)
+        th.start()
+        logger.info("FTP server has started successfully")
 
         while True:
             try:
@@ -172,6 +193,10 @@ class JIMserver:
                                 send_message(conn, RESPONSE_ERROR.as_dict, self.publicKey)
                                 logger.info('{} is checking: {} is not registerd'
                                             .format(userid, data.get('contact_name').upper()))
+                        # Adding avatar
+                        elif data.get(FIELD_ACTION) == ACT_AVATAR:
+                            self.processing.uploadImage(data)
+                            logger.info('{} is adding Avatar'.format(userid))
 
                         # Resending normal messages to other user
                         elif data.get(FIELD_ACTION) == ACT_MSG:

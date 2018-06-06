@@ -17,7 +17,7 @@ class Ui_dlgLogin(object):
         dlgLogin.setMaximumSize(QtCore.QSize(280, 140))
         dlgLogin.setSizeIncrement(QtCore.QSize(300, 150))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("images/icons/chat1.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":images/icons/chat1.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         dlgLogin.setWindowIcon(icon)
         dlgLogin.setStyleSheet("")
         dlgLogin.setModal(True)
@@ -38,7 +38,7 @@ class Ui_dlgLogin(object):
         self.lblImage.setBaseSize(QtCore.QSize(80, 80))
         self.lblImage.setStyleSheet("")
         self.lblImage.setText("")
-        self.lblImage.setPixmap(QtGui.QPixmap("images/icons/msg_icon.jpg"))
+        self.lblImage.setPixmap(QtGui.QPixmap(":images/icons/msg_icon.jpg"))
         self.lblImage.setScaledContents(True)
         self.lblImage.setObjectName("lblImage")
         self.horizontalLayout.addWidget(self.lblImage)
@@ -95,4 +95,4 @@ class Ui_dlgLogin(object):
         self.lblLogin.setText(_translate("dlgLogin", "Login:"))
         self.lblPassword.setText(_translate("dlgLogin", "Password:"))
 
-import resources_rc
+import ClientRepo.ui.resources

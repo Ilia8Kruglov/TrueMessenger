@@ -13,6 +13,7 @@ from .jim.config_common import *
 from .jim.utils import send_message, get_message
 from .client_db_worker import ClientDBworker
 from .security.encryption import load_key
+from .ftp_client import FTPclient
 
 
 class LocalStorage:
@@ -49,6 +50,7 @@ class Client:
         self.receiver = None
         self.received_encr_data = None
         self.connected = False
+        self.ftp = FTPclient('localhost', 1026)
         self.publicKey = load_key(self.publicKeyPath)
         self.privateKey = load_key(self.privateKeyPath)
         self.request_queue = Queue()

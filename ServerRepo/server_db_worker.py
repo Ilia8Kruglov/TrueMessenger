@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, delete
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, BLOB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from .server_db_init import Connector
+# from ServerRepo.server_db_init import Connector
 from datetime import datetime
 from os import path
 
@@ -61,6 +62,25 @@ class ContactList(Base):
 
     def __repr__(self):
         return self.contact_name
+
+
+class UserImage(Base):
+    __tablename__ = 'UserImage'
+    id = Column(Integer, primary_key=True)
+    image = Column(BLOB)
+    user_name = Column(String)
+    user_id = Column(Integer, ForeignKey('User.user_id'))
+
+    user = relationship("User", backref="image")
+
+    def __init__(self, user_name, image, user_id=None):
+        self.image = image
+        self.user_name = user_name
+        self.user_id = user_id
+
+    def __repr__(self):
+        activity = '[{}] {} {}'
+        return activity.format(self.user_name)
 
 
 class ServerDBworker(Connector):
@@ -135,6 +155,20 @@ class ServerDBworker(Connector):
             return False
         return True
 
+    def uploadImg(self, username, imgBytes):
+        user_obj = self.session.query(User).filter_by(user_name=username).first()
+        # Checking if user exists and if no image yet
+        if user_obj and not user_obj.image:
+            self.session.add(UserImage(username, imgBytes, user_obj.user_id))
+            return True
+        # Checking if user exists and if image exists, then update the entry
+        if user_obj and user_obj.image:
+            row = self.session.query(UserImage).filter(UserImage.user_name == username).first()
+            row.image = imgBytes
+            return True
+
+    def downloadImg(self, username):
+        pass
 
 
 if __name__ == "__main__":
@@ -146,22 +180,22 @@ if __name__ == "__main__":
                         'user_id': 'Alesya', 'contact_name': 'Vaysa'}
 
     with ServerDBworker() as store:
-        store.create_user(user_req1)
-        store.create_user(user_req2)
-        store.create_user(user_req3)
-        store.create_user(user_req4)
-        store.add_history('Andrei', ('127.0.0.1', 65320))
-        store.add_contact('Andrei', 'Valera')
-        store.add_contact('Andrei', 'Andrei')
-        store.add_contact('Andrei', 'Alesya')
-        store.add_history('Anna', ('192.168.1.2', 5555))
-        store.add_contact('Anna', 'Valera')
-        store.add_contact('Anna', 'Andrei')
-        store.add_contact('Anna', 'Alesya')
-        store.add_contact('Anna', 'Alesha')
-        print(store.get_contacts('Anna'))
-        print(store.get_contacts('Anna', _count=True))
+        # store.create_user(user_req1)
+        # store.create_user(user_req2)
+        # store.create_user(user_req3)
+        # store.create_user(user_req4)
+        # store.add_history('Andrei', ('127.0.0.1', 65320))
+        # store.add_contact('Andrei', 'Valera')
+        # store.add_contact('Andrei', 'Andrei')
+        # store.add_contact('Andrei', 'Alesya')
+        # store.add_history('Anna', ('192.168.1.2', 5555))
+        # store.add_contact('Anna', 'Valera')
+        # store.add_contact('Anna', 'Andrei')
+        # store.add_contact('Anna', 'Alesya')
+        # store.add_contact('Anna', 'Alesha')
+        # print(store.get_contacts('Anna'))
+        # print(store.get_contacts('Anna', _count=True))
         # print(store.authenticate_user('Andrei', 'userPwd'))
-        print(store.account_registered('Vasya'))
-        # print(store.del_contact('Anna', 'Alesha'))
+        # print(store.account_registered('Vasya'))
+        print(store.del_contact('Anna', 'Alesha'))
 

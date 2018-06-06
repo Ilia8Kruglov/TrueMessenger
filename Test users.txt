@@ -1,0 +1,10 @@
+Test users:
+
+Username: test
+Password: test
+
+Username: Andrei
+Password: test
+
+Username: Anna
+Password: test

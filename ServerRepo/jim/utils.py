@@ -1,11 +1,6 @@
 import json
 from ServerRepo.security.encryption import decrypt, load_key, encrypt
 
-#
-# privateKey = load_key('id_rsa_server')
-# publicKey = load_key('id_rsa_client.pub')
-
-
 def dict_to_str(dictionary):
     if isinstance(dictionary, dict):
         jmessage = json.dumps(dictionary)
